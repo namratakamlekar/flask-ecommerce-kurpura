@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Order placed | Śivārpaṇa Karpura{% endblock %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/order-success.css') }}">{% endblock %}
+
+{% block content %}
+<main><div class="thanks" id="ok">
+{% if order %}
+  <div class="tick">✓</div><h1>Thank you, {{ current_user.name.split()[0] }}!</h1>
+  <p>Your order <b>#{{ order.number }}</b> has been placed.</p>
+  <div class="box">
+    {% for i in order.order_items %}<div class="sum-item"><span>{{ i.name }} × {{ i.qty }}</span><span>{{ (i.price * i.qty) | rupees }}</span></div>{% endfor %}
+    <div class="sum-row"><span>Delivery</span><span>{{ (order.delivery | rupees) if order.delivery else 'FREE' }}</span></div>
+    <div class="sum-row total"><span>Total ({{ order.payment }})</span><span>{{ order.total | rupees }}</span></div>
+    <p style="margin-top:10px;color:var(--muted);font-size:.9rem">Delivering to: {{ order.ship_name }}, {{ order.ship_address }}, {{ order.ship_city }} – {{ order.ship_pin }}</p>
+  </div>
+  <div class="btns"><a class="btn btn-primary" href="{{ url_for('account') }}">View my orders</a><a class="btn btn-outline" href="{{ url_for('shop') }}">Continue shopping</a></div>
+{% else %}
+  <div class="empty"><h2>Order not found</h2><p>Please check My account for your orders.</p><a class="btn btn-primary" href="{{ url_for('account') }}">My account</a></div>
+{% endif %}
+</div></main>
+{% endblock %}

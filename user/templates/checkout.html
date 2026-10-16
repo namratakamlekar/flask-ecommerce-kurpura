@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Checkout | Śivārpaṇa Karpura{% endblock %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/checkout.css') }}">{% endblock %}
+
+{% block content %}
+<div class="page-hero"><h1>Checkout</h1><p>Almost done. Add your delivery details.</p></div>
+
+<main class="wrap"><div class="co">
+  <div class="panel"><h2>Delivery details</h2>
+    {% if error %}<div class="msg err">{{ error }}</div>{% endif %}
+    <form method="post" novalidate>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <div class="two">
+        <div class="field"><label for="fName">Full name</label><input id="fName" name="name" value="{{ form.name }}"></div>
+        <div class="field"><label for="fPhone">Phone</label><input id="fPhone" name="phone" type="tel" value="{{ form.phone }}"></div>
+      </div>
+      <div class="field"><label for="fAddr">Address</label><input id="fAddr" name="address" placeholder="House no, street, area" value="{{ form.address }}"></div>
+      <div class="two">
+        <div class="field"><label for="fCity">City</label><input id="fCity" name="city" value="{{ form.city }}"></div>
+        <div class="field"><label for="fPin">Pincode</label><input id="fPin" name="pin" inputmode="numeric" maxlength="6" value="{{ form.pin }}"></div>
+      </div>
+      <h2 style="margin-top:6px">Payment</h2>
+      <label class="pay"><input type="radio" checked disabled><span><b>Cash on Delivery</b><br><small style="color:var(--muted)">Pay when your order arrives.</small></span></label>
+      <button class="btn btn-primary btn-block" type="submit">Place order · {{ total | rupees }}</button>
+    </form></div>
+  <aside class="panel"><h2>Your order</h2>
+    {% for l in lines %}<div class="sum-item"><span>{{ l.product.name }} × {{ l.qty }}</span><span>{{ l.total | rupees }}</span></div>{% endfor %}
+    <div class="sum-row"><span>Subtotal</span><span>{{ subtotal | rupees }}</span></div>
+    <div class="sum-row"><span>Delivery</span><span>{{ (delivery | rupees) if delivery else 'FREE' }}</span></div>
+    <div class="sum-row total"><span>Total</span><span>{{ total | rupees }}</span></div>
+    <p class="note" style="color:var(--muted);font-size:.85rem;margin-top:8px">Free delivery on orders of {{ free_above | rupees }} and above.</p>
+    <a href="{{ url_for('cart') }}" style="color:var(--pink)">← Back to cart</a>
+  </aside>
+</div></main>
+{% endblock %}

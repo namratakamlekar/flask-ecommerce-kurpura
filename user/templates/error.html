@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} | Śivārpaṇa Karpura{% endblock %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/shop.css') }}">{% endblock %}
+{% block content %}
+<main class="wrap shop"><div class="empty"><h2>{{ title }}</h2><p>{{ text }}</p>
+<a class="btn btn-primary" href="{{ url_for('index') }}">Back to home</a></div></main>
+{% endblock %}

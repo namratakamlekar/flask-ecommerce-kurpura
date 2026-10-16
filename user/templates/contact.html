@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Contact | Śivārpaṇa Karpura{% endblock %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/contact.css') }}">{% endblock %}
+
+{% block content %}
+<div class="page-hero"><h1>Contact us</h1><p>We would love to hear from you.</p></div>
+
+<div class="contact">
+  <div class="info-box">
+    <h3>Company</h3><p>Sivarpana Private Limited</p>
+    <h3>Address</h3><p>15/A, Avishkar Gargen, Sahakar Nagar,<br>Pune – 411009</p>
+    <h3>Email</h3><p><a href="mailto:sivarpanaprivatelimited@gmail.com" style="color:var(--pink)">sivarpanaprivatelimited@gmail.com</a></p>
+    <h3>Quick links</h3><p><a href="{{ url_for('faq') }}" style="color:var(--pink)">FAQ</a> · <a href="{{ url_for('shipping_returns') }}" style="color:var(--pink)">Shipping &amp; returns</a></p>
+  </div>
+  <div class="form-box">
+    <h2 style="font-size:1.7rem;margin-bottom:12px">Send a message</h2>
+    {% if error %}<div class="msg err">{{ error }}</div>{% endif %}
+    {% if success %}<div class="msg ok">{{ success }}</div>{% endif %}
+    <form method="post" novalidate>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <div class="field"><label for="cName">Your name</label><input id="cName" name="name" value="{{ form.name }}" required></div>
+      <div class="field"><label for="cEmail">Email</label><input id="cEmail" name="email" type="email" value="{{ form.email }}" required></div>
+      <div class="field"><label for="cText">Message</label><textarea id="cText" name="text" required>{{ form.text }}</textarea></div>
+      <button class="btn btn-primary btn-block" type="submit">Send message</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

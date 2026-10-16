@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}About us | Śivārpaṇa Karpura{% endblock %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">{% endblock %}
+{% block content %}
+<div class="page-hero"><h1>About Śivārpaṇa</h1><p>Pure. Sacred. Divine.</p></div>
+
+<section><div class="wrap">
+  <div class="split">
+    <div><h2 class="sec-title" style="text-align:left">Puja essentials, made with care</h2>
+      <p style="margin-top:10px">Śivārpaṇa Karpura offers natural camphor and everyday puja essentials for your daily aarti and every festival. Sivarpana Private Limited is based in Pune, and our products are packed in India.</p>
+      <p style="margin-top:10px">We started with one simple idea: the things you offer to the divine should be pure, clean and easy to find in one place.</p>
+      <div style="margin-top:18px"><a class="btn btn-primary" href="{{ url_for('shop') }}">Shop now</a> <a class="btn btn-outline" href="{{ url_for('contact') }}">Contact us</a></div></div>
+    <img src="{{ url_for('static', filename='img/products/pure-karpura.jpg') }}" alt="Pure karpura in a glass jar" onerror="if(!this.dataset.t){this.dataset.t=1;this.src=this.src.replace(/\.jpg$/,'.png')}">
+  </div></div></section>
+<section class="alt-bg" style="background:var(--cream)"><div class="wrap">
+  <h2 class="sec-title">What we stand for</h2>
+  <div class="values">
+    <div><h3>Pure &amp; natural</h3><p>Natural camphor crystals and simple ingredients for your puja.</p></div>
+    <div><h3>Made in India</h3><p>Packed in Pune and sent to homes across the country.</p></div>
+    <div><h3>For every festival</h3><p>Diyas, wicks, kits and gift combos for Diwali, Mahashivratri and daily aarti.</p></div>
+    <div><h3>Here to help</h3><p>Write to us any time and we will gladly guide you.</p></div>
+  </div></div></section>
+{% endblock %}

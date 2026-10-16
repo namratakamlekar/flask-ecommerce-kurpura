@@ -1,0 +1,1310 @@
+/* =====================================================================
+   CSS CONTENTS
+     1. Colours          6. Footer + popup
+     2. Reset + text     7. Page title bar
+     3. Header           8. Forms (login / register)
+     4. Buttons          9. Mobile
+     5. Product card    10. This page only
+   ===================================================================== */
+
+/* =====================================================================
+   1. COLOURS  - change a colour here and it changes on every element.
+      Taken from the logo (gold + flame orange) and lotus (pink + green).
+   ===================================================================== */
+:root {
+  --bg: #fff8fb;                                /* page background (soft blush white)          */
+  --cream: #fdeaf2;                             /* light pink - alternate sections, hero bars   */
+  --pink: #c93a74;                              /* MAIN lotus pink - buttons, active chips      */
+  --pink-dark: #9c2457;                         /* deep pink - headings, hover on pink          */
+  --green: #3f7d2c;                             /* lotus-stem green - accents                   */
+  --green-dark: #1d3f16;                        /* deep green - hero banner, logo circle        */
+  --black: #0e0b0c;                             /* black - header, footer, popup                */
+  --saffron: #f09010;                           /* logo flame orange - highlights, cart badge   */
+  --gold: #b8862b;                              /* logo gold - borders and outlines             */
+  --ink: #2b1a22;                               /* main text                                    */
+  --muted: #7a5f6c;                             /* secondary text                               */
+  --line: #f0d3e1;                              /* thin borders                                 */
+  --serif: "Cormorant Garamond",Georgia,serif;  /* headings */
+  --sans: "Hind",system-ui,sans-serif;          /* body text */
+}
+
+/* =====================================================================
+   2. RESET + BASIC TEXT
+   ===================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+:focus-visible {  /* keyboard focus ring */
+  outline: 2px solid var(--saffron);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  line-height: 1.15;
+  color: var(--pink-dark);
+}
+
+/* Layout helpers */
+.wrap {  /* centred content column */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5vw;
+}
+
+section {
+  padding: 64px 0;
+}
+
+.sec-title {
+  font-size: clamp(1.9rem,4vw,2.6rem);
+  text-align: center;
+}
+
+.sec-sub {
+  text-align: center;
+  color: var(--muted);
+  margin: 6px auto 36px;
+  max-width: 52ch;
+}
+
+/* =====================================================================
+   3. HEADER (same on every page)
+   ===================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 5vw;
+  background: var(--black);
+  color: #fff;
+  border-bottom: 3px solid var(--gold);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand img {
+  width: 46px;
+  height: 46px;
+}
+
+.brand b {
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  letter-spacing: .04em;
+  line-height: 1;
+}
+
+.brand small {
+  display: block;
+  font-size: .7rem;
+  letter-spacing: .35em;
+  color: var(--saffron);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.nav a {
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+  transition: border-color .2s;
+}
+
+.nav a:hover,
+.nav a.active {  /* underline on hover / current page */
+  border-color: var(--saffron);
+}
+
+.cart-count {
+  /* little orange number next to "Cart" */
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  margin-left: 6px;
+  border-radius: 11px;
+  background: var(--saffron);
+  color: var(--black);
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+/* =====================================================================
+   4. BUTTONS
+   .btn-primary = pink | .btn-gold = orange | .btn-outline = pink border
+   ===================================================================== */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 500;
+  text-align: center;
+  transition: background .2s,color .2s,transform .1s;
+}
+
+.btn:active {
+  transform: scale(.98);
+}
+
+.btn-primary {
+  background: var(--pink);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--pink-dark);
+}
+
+.btn-gold {
+  background: var(--saffron);
+  color: var(--green-dark);
+}
+
+.btn-gold:hover {
+  background: #fff;
+}
+
+.btn-outline {
+  border-color: var(--pink);
+  color: var(--pink);
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background: var(--pink);
+  color: #fff;
+}
+
+.btn-block {  /* full-width button */
+  display: block;
+  width: 100%;
+}
+
+/* =====================================================================
+   5. PRODUCT CARD (used on Home and Shop)
+   ===================================================================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(240px,1fr));
+  gap: 24px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform .25s,box-shadow .25s,border-color .25s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(156,36,87,.15);
+  border-color: var(--gold);
+}
+
+.card-media {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1/.85;
+  overflow: hidden;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .3s;
+}
+
+.card:hover .card-img {
+  transform: scale(1.06);
+}
+
+/* Picture-area backgrounds, one per category (order matches CATEGORIES in the JS) */
+.cat-0 {  /* Karpura        - cream/gold   */
+  background: radial-gradient(circle at 50% 40%,#fff8e6,#f9d98c);
+}
+
+.cat-1 {  /* Agarbatti      - soft green   */
+  background: radial-gradient(circle at 50% 40%,#f3f9ec,#b9d9a0);
+}
+
+.cat-2 {  /* Diyas          - flame orange */
+  background: radial-gradient(circle at 50% 40%,#fff1d6,#f7b45a);
+}
+
+.cat-3 {  /* Kumkum         - lotus pink   */
+  background: radial-gradient(circle at 50% 40%,#fde9f1,#ee9bbd);
+}
+
+.cat-4 {  /* Thali          - gold         */
+  background: radial-gradient(circle at 50% 40%,#f9ecd0,#d9b062);
+}
+
+.cat-5 {  /* Gift combos    - deep pink    */
+  background: radial-gradient(circle at 50% 40%,#fbe4ee,#d0709a);
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: var(--pink);
+  color: #fff;
+  font-size: .8rem;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  flex: 1;
+}
+
+.card-cat {
+  color: var(--muted);
+  font-size: .85rem;
+}
+
+.card-title {
+  font-size: 1.4rem;
+}
+
+.card-title a:hover {
+  color: var(--saffron);
+}
+
+.card-hi {
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+.price-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 14px;
+}
+
+.price {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.mrp {
+  color: var(--muted);
+  text-decoration: line-through;
+  font-size: .9rem;
+}
+
+.off {
+  color: var(--green);
+  font-size: .85rem;
+  font-weight: 500;
+}
+
+.card .btn {  /* pushes button to card bottom */
+  margin-top: auto;
+}
+
+/* =====================================================================
+   6. FOOTER + TOAST (the small "added to cart" popup)
+   ===================================================================== */
+.site-footer {
+  background: var(--black);
+  color: var(--cream);
+  padding: 48px 0 24px;
+  border-top: 3px solid var(--gold);
+}
+
+.foot {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  gap: 32px;
+}
+
+.foot h3 {
+  color: var(--saffron);
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+.foot a {
+  display: block;
+  opacity: .85;
+}
+
+.foot a:hover {
+  opacity: 1;
+  color: var(--saffron);
+}
+
+.foot p {
+  opacity: .85;
+  font-size: .95rem;
+}
+
+.copy {
+  text-align: center;
+  font-size: .85rem;
+  opacity: .7;
+  margin-top: 32px;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translate(-50%,20px);
+  background: var(--black);
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 8px;
+  border-left: 4px solid var(--saffron);
+  opacity: 0;
+  pointer-events: none;
+  transition: .25s;
+  z-index: 50;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%,0);
+}
+
+/* =====================================================================
+   7. PAGE TITLE BAR (Shop, Cart, Account)
+   ===================================================================== */
+.page-hero {
+  text-align: center;
+  padding: 44px 5vw;
+  background: var(--cream);
+  border-bottom: 1px solid var(--line);
+}
+
+.page-hero h1 {
+  font-size: clamp(2.1rem,5vw,3.2rem);
+}
+
+.page-hero p {
+  color: var(--muted);
+}
+
+/* =====================================================================
+   8. FORMS (Login + Register)
+   ===================================================================== */
+.auth {
+  min-height: 70vh;
+  display: grid;
+  place-items: center;
+  padding: 48px 5vw;
+  background: radial-gradient(circle at 50% 0,#fde0ec,var(--bg) 60%);
+}
+
+.panel {
+  width: 100%;
+  max-width: 440px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--saffron);
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 18px 40px rgba(156,36,87,.08);
+}
+
+.panel h1 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.panel .sub {
+  text-align: center;
+  color: var(--muted);
+  margin: 4px 0 22px;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+.field label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 4px;
+  font-size: .95rem;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.field input:focus {
+  border-color: var(--pink);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(201,58,116,.18);
+}
+
+.msg {  /* hidden until JS shows it */
+  display: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  font-size: .95rem;
+}
+
+.msg.err {  /* red error box   */
+  display: block;
+  background: #fbe7e7;
+  color: #8a1c1c;
+  border: 1px solid #efc2c2;
+}
+
+.msg.ok {  /* green success   */
+  display: block;
+  background: #e6f4e8;
+  color: #1f6b31;
+  border: 1px solid #bfe0c5;
+}
+
+.alt {
+  text-align: center;
+  margin-top: 18px;
+  color: var(--muted);
+}
+
+.alt a {
+  color: var(--pink);
+  font-weight: 600;
+  border-bottom: 1px solid var(--gold);
+}
+
+/* =====================================================================
+   9. MOBILE (screens under 700px)
+   ===================================================================== */
+@media(max-width:700px) {
+  .site-header {
+    flex-wrap: wrap;
+  }
+
+  .nav {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 18px;
+    font-size: .95rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2,1fr);
+    gap: 14px;
+  }
+
+  .card-body {
+    padding: 12px;
+  }
+
+  .card-title {
+    font-size: 1.15rem;
+  }
+
+  .foot {
+    grid-template-columns: 1fr;
+  }
+
+  section {
+    padding: 48px 0;
+  }
+}
+
+@media(max-width:900px) {
+  /* TABLET */
+  .foot {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .foot > div:first-child {  /* brand text takes the full first row */
+    grid-column: 1/-1;
+  }
+
+  .page-hero {
+    padding: 34px 5vw;
+  }
+}
+
+@media(max-width:480px) {
+  /* SMALL PHONES */
+  .brand img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .brand b {
+    font-size: 1.4rem;
+  }
+
+  .brand small {
+    letter-spacing: .28em;
+  }
+
+  .nav {
+    gap: 14px;
+    font-size: .9rem;
+  }
+
+  .btn {
+    padding: 11px 18px;
+  }
+
+  .panel {
+    padding: 24px 18px;
+  }
+
+  .sec-sub {
+    margin-bottom: 26px;
+  }
+
+  .foot {
+    grid-template-columns: 1fr;
+  }
+
+  .toast {
+    width: calc(100% - 32px);
+    text-align: center;
+  }
+}
+
+@media(max-width:380px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  * {
+    transition: none!important;
+    scroll-behavior: auto!important;
+  }
+}
+
+/* respect "reduce motion" setting */
+
+/* =====================================================================
+   10. STYLES ONLY FOR THIS PAGE (index)
+   ===================================================================== */
+
+/* Hero = big green banner at the top with the logo and lotus flowers */
+.hero {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  color: #fff;
+  padding: 56px 5vw 120px;
+  box-shadow: inset 0 0 0 5px var(--gold);  /* thin gold frame, like the packaging */
+  /* soft yellow glow behind the logo fading to orange (same look as the packaging) */
+  background: radial-gradient(circle at 50% 34%,#ffe7a0 0,#fbbf3a 26%,#f9a61f 60%,#ef8c10 100%);
+}
+
+.hero .hero-art {  /* logo + lotus picture */
+  display: block;
+  position: relative;
+  width: min(900px,100%);
+  margin: 0 auto;
+}
+
+.hero h1 {  /* main brand name - dark, like the packaging */
+  position: relative;
+  color: var(--black);
+  font-size: clamp(2.6rem,7vw,4.8rem);
+  letter-spacing: .03em;
+  margin-top: 6px;
+}
+
+.hero .tag {
+  position: relative;
+  letter-spacing: .4em;
+  font-size: .85rem;
+  color: var(--black);
+  margin: 6px 0 18px;
+}
+
+.hero p.lead {
+  position: relative;
+  max-width: 46ch;
+  margin: 0 auto 26px;
+  color: var(--ink);
+  font-size: 1.1rem;
+}
+
+.hero .btns {
+  position: relative;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero .btn-gold {  /* "Shop now" - black on the orange hero */
+  background: var(--black);
+  color: #fff;
+}
+
+.hero .btn-gold:hover {
+  background: var(--pink);
+}
+
+.hero .btn-ghost {  /* "Explore Karpura" - outline */
+  border-color: var(--black);
+  color: var(--black);
+}
+
+.hero .btn-ghost:hover {
+  background: var(--black);
+  color: #fff;
+}
+
+/* ---------- ANIMATIONS ---------- */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* fade + slide up      */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* slow up-and-down     */
+@keyframes sway {
+  /* lotus swings gently  */
+  from {
+    transform: rotate(calc(var(--tilt) - 3deg));
+  }
+
+  to {
+    transform: rotate(calc(var(--tilt) + 3deg));
+  }
+}
+
+.hero-art {  /* logo + lotus: appear, then float */
+  animation: rise 1s ease-out both,float 6s ease-in-out 1s infinite;
+}
+
+.hero h1,
+.hero .tag,
+.hero .orn,
+.hero .lead,
+.hero .btns {  /* hero text appears one by one */
+  animation: rise .8s ease-out both;
+}
+
+.hero h1 {
+  animation-delay: .3s;
+}
+
+.hero .tag {
+  animation-delay: .45s;
+}
+
+.hero .orn {
+  animation-delay: .55s;
+}
+
+.hero .lead {
+  animation-delay: .65s;
+}
+
+.hero .btns {
+  animation-delay: .8s;
+}
+
+/* Scroll reveal: cards and tiles fade + slide up when they come into view (JS adds/removes these classes) */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s ease,transform .7s ease;
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Category icon hops on hover */
+.cat span {
+  transition: transform .3s,background .25s;
+}
+
+.cat:hover span {
+  transform: translateY(-5px) scale(1.1);
+}
+
+/* Cart number "pops" when it changes (class added by JS in the shared code) */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+
+  40% {
+    transform: scale(1.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.cart-count.bump {
+  animation: pop .4s ease;
+}
+
+/* Gold ornament under section titles shimmers slowly */
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: .55;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.sec-title::after {
+  animation: shimmer 3.5s ease-in-out infinite;
+}
+
+@media(prefers-reduced-motion:reduce) {
+  * {
+    animation: none!important;
+  }
+}
+
+/* respect "reduce motion" */
+
+/* Small ornament line under the brand name: ---- ◆ ---- */
+.orn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  max-width: 340px;
+  margin: 0 auto 16px;
+  color: #b8431a;
+  font-size: .8rem;
+  position: relative;
+}
+
+.orn::before,
+.orn::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg,transparent,#b8431a);
+}
+
+.orn::after {
+  transform: scaleX(-1);
+}
+
+/* Trust strip: white card that overlaps the bottom of the hero */
+.trust {
+  position: relative;
+  z-index: 2;
+  margin-top: -52px;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 8px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--pink);
+  border-radius: 14px;
+  padding: 20px 12px;
+  box-shadow: 0 18px 40px rgba(156,36,87,.14);
+}
+
+.trust div {
+  text-align: center;
+  padding: 4px 10px;
+  border-right: 1px solid var(--line);
+}
+
+.trust div:last-child {
+  border-right: 0;
+}
+
+.trust span {
+  display: block;
+  font-size: 1.6rem;
+}
+
+.trust b {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  color: var(--pink-dark);
+  line-height: 1.2;
+}
+
+.trust small {
+  color: var(--muted);
+}
+
+.trust-wrap {  /* strip sits between hero and next section */
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.trust-wrap + section {
+  padding-top: 56px;
+}
+
+/* Gold ornament under every section title */
+.sec-title::after {
+  content: "—  ◆  —";
+  display: block;
+  color: var(--gold);
+  font-family: var(--sans);
+  font-size: .75rem;
+  letter-spacing: .2em;
+  margin-top: 6px;
+}
+
+/* Lotus decorations (gently swaying) in the corners of some sections (add class "has-deco" + the two <img class="deco"> tags) */
+.has-deco {
+  position: relative;
+  overflow: hidden;
+}
+
+.has-deco .wrap {  /* keeps text and cards above the lotus */
+  position: relative;
+  z-index: 1;
+}
+
+.deco {
+  position: absolute;
+  bottom: 16px;
+  height: 180px;
+  pointer-events: none;
+  transform-origin: 50% 100%;                           /* sway from the bottom of the stem */
+  filter: drop-shadow(0 6px 10px rgba(156,36,87,.18));  /* soft shadow only - no sticker outline */
+  animation: sway 6s ease-in-out infinite alternate;
+}
+
+.deco-l {
+  left: 1vw;
+  --tilt: -4deg;
+}
+
+.deco-r {  /* right one starts at a different point */
+  right: 1vw;
+  --tilt: 4deg;
+  animation-delay: -3s;
+}
+
+.deco-top {  /* put a decoration at the top corner instead */
+  bottom: auto;
+  top: 18px;
+}
+
+@media(max-width:1250px) {
+  .deco {
+    display: none;
+  }
+}
+
+/* hide on small screens so nothing overlaps */
+
+/* Alternate section background (light pink band) */
+.alt-bg {
+  background: var(--cream);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+/* Popular categories */
+.cats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(170px,1fr));
+  gap: 18px;
+}
+
+.cat {
+  display: block;
+  text-align: center;
+  padding: 26px 14px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  transition: .25s;
+}
+
+.cat:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: 0 12px 24px rgba(156,36,87,.12);
+}
+
+.cat span {
+  display: grid;
+  place-items: center;
+  width: 88px;
+  height: 88px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  font-size: 2rem;
+  transition: background .25s;
+}
+
+.cat:hover span {
+  background: #fbd0e2;
+}
+
+.cat-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cat b {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  color: var(--pink-dark);
+  margin-top: 6px;
+  line-height: 1.2;
+}
+
+/* Festival collection cards (three coloured tiles) */
+.fest {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+  gap: 22px;
+}
+
+.fest a {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 220px;
+  padding: 24px;
+  border-radius: 14px;
+  color: #fff;
+  overflow: hidden;
+  transition: transform .25s;
+}
+
+.fest a:hover {
+  transform: translateY(-4px);
+}
+
+.fest h3 {
+  color: #fff;
+  font-size: 1.7rem;
+}
+
+.fest p {
+  opacity: .92;
+  font-size: .95rem;
+}
+
+.fest .f1 {  /* Diwali:        orange -> deep pink  */
+  background: linear-gradient(160deg,#f09010,#9c2457);
+}
+
+.fest .f2 {  /* Gift combos:   pink -> plum         */
+  background: linear-gradient(160deg,#d9569a,#6e1740);
+}
+
+.fest .f3 {  /* Mahashivratri: green -> deep green  */
+  background: linear-gradient(160deg,#4d9636,#1d3f16);
+}
+
+.fest-img {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 76px;
+  height: 76px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.75);
+}
+
+.fest em {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-style: normal;
+  font-size: 2.6rem;
+  opacity: .9;
+}
+
+/* Highlight block: logo circle + Bhimseni text */
+.hl {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.hl-art {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  max-width: 380px;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle,#2f6a22,var(--green-dark) 72%);  /* dark green so the white logo shows */
+  box-shadow: inset 0 0 0 10px #fde0ec,0 0 0 2px var(--gold);
+}
+
+.hl-art img {
+  width: 62%;
+}
+
+.hl h2 {
+  font-size: clamp(2rem,4vw,2.8rem);
+}
+
+.hl p {
+  color: var(--muted);
+  margin: 12px 0 18px;
+}
+
+.facts {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.facts li {
+  padding-left: 26px;
+  position: relative;
+}
+
+.facts li:before {
+  content: "🪔";
+  position: absolute;
+  left: 0;
+  font-size: .9rem;
+}
+
+/* Why choose us */
+.why {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 22px;
+}
+
+.why div {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 26px 22px;
+  border-top: 3px solid var(--green);
+}
+
+.why h3 {
+  font-size: 1.4rem;
+  margin-bottom: 6px;
+}
+
+.why p {
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* Reviews */
+.reviews {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+  gap: 22px;
+}
+
+.rev {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.rev .stars {
+  color: var(--saffron);
+  letter-spacing: 2px;
+}
+
+.rev p {
+  margin: 8px 0 12px;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  color: var(--ink);
+}
+
+.rev small {
+  color: var(--muted);
+}
+
+.more {
+  text-align: center;
+  margin-top: 30px;
+}
+
+@media(max-width:1000px) {
+  .hero .hero-art {
+    width: min(760px,100%);
+  }
+}
+
+/* TABLET: slightly smaller hero picture */
+@media(max-width:800px) {
+  .hl {  /* Bhimseni block: picture on top, text below */
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .hl > div:last-child {
+    text-align: center;
+  }
+
+  .facts {
+    justify-items: center;
+  }
+
+  .trust {
+    grid-template-columns: repeat(2,1fr);
+    row-gap: 16px;
+  }
+
+  .trust div:nth-child(2) {
+    border-right: 0;
+  }
+}
+
+@media(max-width:480px) {
+  /* SMALL PHONES */
+  .hero {
+    padding: 32px 5vw 96px;
+  }
+
+  .hero .tag {
+    letter-spacing: .2em;
+    font-size: .75rem;
+  }
+
+  .hero .btns .btn {  /* buttons become full width */
+    flex: 1 1 100%;
+  }
+
+  .trust {
+    padding: 16px 6px;
+  }
+
+  .trust b {
+    font-size: 1.05rem;
+  }
+
+  .trust small {
+    font-size: .8rem;
+  }
+
+  .fest a {
+    min-height: 180px;
+    padding: 20px;
+  }
+
+  .hl-art {
+    max-width: 260px;
+  }
+
+  .cat {
+    padding: 20px 8px;
+  }
+
+  .cat b {
+    font-size: 1.1rem;
+  }
+
+  .rev p {
+    font-size: 1.1rem;
+  }
+}

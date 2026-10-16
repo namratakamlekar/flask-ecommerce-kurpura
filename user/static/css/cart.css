@@ -1,0 +1,829 @@
+/* =====================================================================
+   CSS CONTENTS
+     1. Colours          6. Footer + popup
+     2. Reset + text     7. Page title bar
+     3. Header           8. Forms (login / register)
+     4. Buttons          9. Mobile
+     5. Product card    10. This page only
+   ===================================================================== */
+
+/* =====================================================================
+   1. COLOURS  - change a colour here and it changes on every element.
+      Taken from the logo (gold + flame orange) and lotus (pink + green).
+   ===================================================================== */
+:root {
+  --bg: #fff8fb;                                /* page background (soft blush white)          */
+  --cream: #fdeaf2;                             /* light pink - alternate sections, hero bars   */
+  --pink: #c93a74;                              /* MAIN lotus pink - buttons, active chips      */
+  --pink-dark: #9c2457;                         /* deep pink - headings, hover on pink          */
+  --green: #3f7d2c;                             /* lotus-stem green - accents                   */
+  --green-dark: #1d3f16;                        /* deep green - hero banner, logo circle        */
+  --black: #0e0b0c;                             /* black - header, footer, popup                */
+  --saffron: #f09010;                           /* logo flame orange - highlights, cart badge   */
+  --gold: #b8862b;                              /* logo gold - borders and outlines             */
+  --ink: #2b1a22;                               /* main text                                    */
+  --muted: #7a5f6c;                             /* secondary text                               */
+  --line: #f0d3e1;                              /* thin borders                                 */
+  --serif: "Cormorant Garamond",Georgia,serif;  /* headings */
+  --sans: "Hind",system-ui,sans-serif;          /* body text */
+}
+
+/* =====================================================================
+   2. RESET + BASIC TEXT
+   ===================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+:focus-visible {  /* keyboard focus ring */
+  outline: 2px solid var(--saffron);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  line-height: 1.15;
+  color: var(--pink-dark);
+}
+
+/* Layout helpers */
+.wrap {  /* centred content column */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5vw;
+}
+
+section {
+  padding: 64px 0;
+}
+
+.sec-title {
+  font-size: clamp(1.9rem,4vw,2.6rem);
+  text-align: center;
+}
+
+.sec-sub {
+  text-align: center;
+  color: var(--muted);
+  margin: 6px auto 36px;
+  max-width: 52ch;
+}
+
+/* =====================================================================
+   3. HEADER (same on every page)
+   ===================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 5vw;
+  background: var(--black);
+  color: #fff;
+  border-bottom: 3px solid var(--gold);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand img {
+  width: 46px;
+  height: 46px;
+}
+
+.brand b {
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  letter-spacing: .04em;
+  line-height: 1;
+}
+
+.brand small {
+  display: block;
+  font-size: .7rem;
+  letter-spacing: .35em;
+  color: var(--saffron);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.nav a {
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+  transition: border-color .2s;
+}
+
+.nav a:hover,
+.nav a.active {  /* underline on hover / current page */
+  border-color: var(--saffron);
+}
+
+.cart-count {
+  /* little orange number next to "Cart" */
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  margin-left: 6px;
+  border-radius: 11px;
+  background: var(--saffron);
+  color: var(--black);
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+/* =====================================================================
+   4. BUTTONS
+   .btn-primary = pink | .btn-gold = orange | .btn-outline = pink border
+   ===================================================================== */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 500;
+  text-align: center;
+  transition: background .2s,color .2s,transform .1s;
+}
+
+.btn:active {
+  transform: scale(.98);
+}
+
+.btn-primary {
+  background: var(--pink);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--pink-dark);
+}
+
+.btn-gold {
+  background: var(--saffron);
+  color: var(--green-dark);
+}
+
+.btn-gold:hover {
+  background: #fff;
+}
+
+.btn-outline {
+  border-color: var(--pink);
+  color: var(--pink);
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background: var(--pink);
+  color: #fff;
+}
+
+.btn-block {  /* full-width button */
+  display: block;
+  width: 100%;
+}
+
+/* =====================================================================
+   5. PRODUCT CARD (used on Home and Shop)
+   ===================================================================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(240px,1fr));
+  gap: 24px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform .25s,box-shadow .25s,border-color .25s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(156,36,87,.15);
+  border-color: var(--gold);
+}
+
+.card-media {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1/.85;
+  overflow: hidden;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .3s;
+}
+
+.card:hover .card-img {
+  transform: scale(1.06);
+}
+
+/* Picture-area backgrounds, one per category (order matches CATEGORIES in the JS) */
+.cat-0 {  /* Karpura        - cream/gold   */
+  background: radial-gradient(circle at 50% 40%,#fff8e6,#f9d98c);
+}
+
+.cat-1 {  /* Agarbatti      - soft green   */
+  background: radial-gradient(circle at 50% 40%,#f3f9ec,#b9d9a0);
+}
+
+.cat-2 {  /* Diyas          - flame orange */
+  background: radial-gradient(circle at 50% 40%,#fff1d6,#f7b45a);
+}
+
+.cat-3 {  /* Kumkum         - lotus pink   */
+  background: radial-gradient(circle at 50% 40%,#fde9f1,#ee9bbd);
+}
+
+.cat-4 {  /* Thali          - gold         */
+  background: radial-gradient(circle at 50% 40%,#f9ecd0,#d9b062);
+}
+
+.cat-5 {  /* Gift combos    - deep pink    */
+  background: radial-gradient(circle at 50% 40%,#fbe4ee,#d0709a);
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: var(--pink);
+  color: #fff;
+  font-size: .8rem;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  flex: 1;
+}
+
+.card-cat {
+  color: var(--muted);
+  font-size: .85rem;
+}
+
+.card-title {
+  font-size: 1.4rem;
+}
+
+.card-title a:hover {
+  color: var(--saffron);
+}
+
+.card-hi {
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+.price-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 14px;
+}
+
+.price {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.mrp {
+  color: var(--muted);
+  text-decoration: line-through;
+  font-size: .9rem;
+}
+
+.off {
+  color: var(--green);
+  font-size: .85rem;
+  font-weight: 500;
+}
+
+.card .btn {  /* pushes button to card bottom */
+  margin-top: auto;
+}
+
+/* =====================================================================
+   6. FOOTER + TOAST (the small "added to cart" popup)
+   ===================================================================== */
+.site-footer {
+  background: var(--black);
+  color: var(--cream);
+  padding: 48px 0 24px;
+  border-top: 3px solid var(--gold);
+}
+
+.foot {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  gap: 32px;
+}
+
+.foot h3 {
+  color: var(--saffron);
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+.foot a {
+  display: block;
+  opacity: .85;
+}
+
+.foot a:hover {
+  opacity: 1;
+  color: var(--saffron);
+}
+
+.foot p {
+  opacity: .85;
+  font-size: .95rem;
+}
+
+.copy {
+  text-align: center;
+  font-size: .85rem;
+  opacity: .7;
+  margin-top: 32px;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translate(-50%,20px);
+  background: var(--black);
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 8px;
+  border-left: 4px solid var(--saffron);
+  opacity: 0;
+  pointer-events: none;
+  transition: .25s;
+  z-index: 50;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%,0);
+}
+
+/* =====================================================================
+   7. PAGE TITLE BAR (Shop, Cart, Account)
+   ===================================================================== */
+.page-hero {
+  text-align: center;
+  padding: 44px 5vw;
+  background: var(--cream);
+  border-bottom: 1px solid var(--line);
+}
+
+.page-hero h1 {
+  font-size: clamp(2.1rem,5vw,3.2rem);
+}
+
+.page-hero p {
+  color: var(--muted);
+}
+
+/* =====================================================================
+   8. FORMS (Login + Register)
+   ===================================================================== */
+.auth {
+  min-height: 70vh;
+  display: grid;
+  place-items: center;
+  padding: 48px 5vw;
+  background: radial-gradient(circle at 50% 0,#fde0ec,var(--bg) 60%);
+}
+
+.panel {
+  width: 100%;
+  max-width: 440px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--saffron);
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 18px 40px rgba(156,36,87,.08);
+}
+
+.panel h1 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.panel .sub {
+  text-align: center;
+  color: var(--muted);
+  margin: 4px 0 22px;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+.field label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 4px;
+  font-size: .95rem;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.field input:focus {
+  border-color: var(--pink);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(201,58,116,.18);
+}
+
+.msg {  /* hidden until JS shows it */
+  display: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  font-size: .95rem;
+}
+
+.msg.err {  /* red error box   */
+  display: block;
+  background: #fbe7e7;
+  color: #8a1c1c;
+  border: 1px solid #efc2c2;
+}
+
+.msg.ok {  /* green success   */
+  display: block;
+  background: #e6f4e8;
+  color: #1f6b31;
+  border: 1px solid #bfe0c5;
+}
+
+.alt {
+  text-align: center;
+  margin-top: 18px;
+  color: var(--muted);
+}
+
+.alt a {
+  color: var(--pink);
+  font-weight: 600;
+  border-bottom: 1px solid var(--gold);
+}
+
+/* =====================================================================
+   9. MOBILE (screens under 700px)
+   ===================================================================== */
+@media(max-width:700px) {
+  .site-header {
+    flex-wrap: wrap;
+  }
+
+  .nav {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 18px;
+    font-size: .95rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2,1fr);
+    gap: 14px;
+  }
+
+  .card-body {
+    padding: 12px;
+  }
+
+  .card-title {
+    font-size: 1.15rem;
+  }
+
+  .foot {
+    grid-template-columns: 1fr;
+  }
+
+  section {
+    padding: 48px 0;
+  }
+}
+
+@media(max-width:900px) {
+  /* TABLET */
+  .foot {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .foot > div:first-child {  /* brand text takes the full first row */
+    grid-column: 1/-1;
+  }
+
+  .page-hero {
+    padding: 34px 5vw;
+  }
+}
+
+@media(max-width:480px) {
+  /* SMALL PHONES */
+  .brand img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .brand b {
+    font-size: 1.4rem;
+  }
+
+  .brand small {
+    letter-spacing: .28em;
+  }
+
+  .nav {
+    gap: 14px;
+    font-size: .9rem;
+  }
+
+  .btn {
+    padding: 11px 18px;
+  }
+
+  .panel {
+    padding: 24px 18px;
+  }
+
+  .sec-sub {
+    margin-bottom: 26px;
+  }
+
+  .foot {
+    grid-template-columns: 1fr;
+  }
+
+  .toast {
+    width: calc(100% - 32px);
+    text-align: center;
+  }
+}
+
+@media(max-width:380px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  * {
+    transition: none!important;
+    scroll-behavior: auto!important;
+  }
+}
+
+/* respect "reduce motion" setting */
+
+/* =====================================================================
+   10. STYLES ONLY FOR THIS PAGE (cart)
+   ===================================================================== */
+
+/* Two columns: items on the left, order summary on the right */
+.cartwrap {
+  padding: 36px 0 72px;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 28px;
+  align-items: start;
+}
+
+/* One cart row */
+.item {
+  display: grid;
+  grid-template-columns: 84px 1fr auto;
+  gap: 16px;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+.thumb {  /* colour comes from .cat-0..5 */
+  width: 84px;
+  height: 84px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 2.2rem;
+  overflow: hidden;
+}
+
+.thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.item h3 {
+  font-size: 1.3rem;
+}
+
+.item small {
+  color: var(--muted);
+}
+
+/* Quantity  [ - 2 + ] */
+.qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+.qty button {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  background: transparent;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--pink);
+}
+
+.qty button:hover {
+  background: var(--cream);
+}
+
+.qty span {
+  min-width: 32px;
+  text-align: center;
+}
+
+/* Line price + Remove link */
+.line {
+  text-align: right;
+}
+
+.line b {
+  display: block;
+  font-size: 1.15rem;
+}
+
+.rm {
+  border: 0;
+  background: none;
+  color: #a02a2a;
+  cursor: pointer;
+  font-size: .9rem;
+  margin-top: 6px;
+  text-decoration: underline;
+}
+
+/* Order summary box (stays visible while scrolling on desktop) */
+.summary {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--saffron);
+  border-radius: 12px;
+  padding: 24px;
+  position: sticky;
+  top: 96px;
+}
+
+.summary h2 {
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+}
+
+.srow {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.srow.total {
+  border-top: 1px solid var(--line);
+  margin-top: 6px;
+  padding-top: 14px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.note {
+  color: var(--muted);
+  font-size: .85rem;
+  margin: 6px 0 16px;
+}
+
+/* Empty cart message */
+.emptycart {
+  text-align: center;
+  padding: 60px 0;
+  grid-column: 1/-1;
+}
+
+.emptycart h2 {
+  font-size: 2rem;
+}
+
+.emptycart p {
+  color: var(--muted);
+  margin: 6px 0 16px;
+}
+
+/* Mobile: stack everything in one column */
+@media(max-width:800px) {
+  .cartwrap {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    position: static;
+  }
+
+  .item {
+    grid-template-columns: 64px 1fr;
+  }
+
+  .thumb {
+    width: 64px;
+    height: 64px;
+    font-size: 1.8rem;
+  }
+
+  .line {
+    grid-column: 1/-1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+  }
+}

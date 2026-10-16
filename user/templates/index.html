@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% from "_macros.html" import product_card %}
+
+{% block title %}Home | Śivārpaṇa Karpura{% endblock %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">{% endblock %}
+
+{% block content %}
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <img class="hero-art" src="{{ url_for('static', filename='img/hero-intro.png') }}" alt="Śivārpaṇa emblem with lotus flowers">
+    <h1>Śivārpaṇa</h1>
+    <p class="tag">PURE · SACRED · DIVINE</p>
+    <div class="orn">◆</div>
+    <p class="lead">Natural camphor and puja essentials, made in India for your daily aarti and every festival.</p>
+    <div class="btns">
+      <a href="{{ url_for('shop') }}" class="btn btn-gold">Shop now</a>
+      <a href="{{ url_for('shop', cat='Karpura') }}" class="btn btn-outline btn-ghost">Explore Karpura</a>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="wrap trust-wrap">
+    <div class="trust">
+      <div><span></span><b>Pure &amp; natural</b><small>Natural camphor crystals</small></div>
+      <div><span></span><b>Made in India</b><small>Packed in Pune</small></div>
+      <div><span></span><b>5-year freshness</b><small>Best before date on pack</small></div>
+      <div><span></span><b>Customer care</b><small>Email us any time</small></div>
+    </div>
+  </div>
+
+  <!-- FEATURED PRODUCTS: comes from the database -->
+  <section><div class="wrap">
+    <h2 class="sec-title">Featured products</h2>
+    <p class="sec-sub">Our most loved items for daily puja.</p>
+    <div class="grid" id="featured">
+      {% for p in featured %}{{ product_card(p) }}{% endfor %}
+    </div>
+    <div class="more"><a href="{{ url_for('shop') }}" class="btn btn-outline">View all products</a></div>
+  </div></section>
+
+  <!-- CATEGORIES: comes from the database -->
+  <section class="alt-bg has-deco">
+    <img class="deco deco-r" src="{{ url_for('static', filename='img/lotus-right.png') }}" alt="">
+    <div class="wrap">
+    <h2 class="sec-title">Popular categories</h2>
+    <p class="sec-sub">Everything you need, in one place.</p>
+    <div class="cats" id="cats">
+      {% for c in categories %}
+      <a class="cat" href="{{ url_for('shop', cat=c.name) }}"><span><img class="cat-img" src="{{ url_for('static', filename='img/products/' ~ c.image) }}" alt="{{ c.name }}" loading="lazy"></span><b>{{ c.name }}</b></a>
+      {% endfor %}
+    </div>
+  </div></section>
+
+  <!-- FESTIVAL COLLECTIONS -->
+  <section><div class="wrap">
+    <h2 class="sec-title">Festival collections</h2>
+    <p class="sec-sub">Ready-to-use kits and combos for the season.</p>
+    <div class="fest">
+      <a class="f1" href="{{ url_for('shop', cat='Thali & Puja Kits') }}"><img class="fest-img" src="{{ url_for('static', filename='img/products/clay-diyas.jpg') }}" alt=""><h3>Diwali puja</h3><p>Diyas, wicks, thali and kits.</p></a>
+      <a class="f2" href="{{ url_for('shop', cat='Gift Combos') }}"><img class="fest-img" src="{{ url_for('static', filename='img/products/diwali-gift-combo.jpg') }}" alt=""><h3>Gift combos</h3><p>Thoughtful sets for family and friends.</p></a>
+      <a class="f3" href="{{ url_for('shop', cat='Karpura') }}"><img class="fest-img" src="{{ url_for('static', filename='img/products/pure-karpura.jpg') }}" alt=""><h3>Mahashivratri</h3><p>Karpura and dhoop for night-long aarti.</p></a>
+    </div>
+  </div></section>
+
+  <!-- HIGHLIGHT -->
+  <section class="alt-bg"><div class="wrap hl">
+    <div class="hl-art"><img src="{{ url_for('static', filename='img/logo.png') }}" alt=""></div>
+    <div>
+      <h2>Bhimseni Karpura</h2>
+      <p>High-grade natural camphor, easy to recognise by its irregular, translucent crystals. Traditionally used during aartis and special pujas.</p>
+      <ul class="facts">
+        <li>Natural camphor crystals</li>
+        <li>Best before 5 years from packaging</li>
+        <li>Manufactured and packed in Pune, made in India</li>
+      </ul>
+      <a href="{{ url_for('product', id=2) }}" class="btn btn-primary">View Bhimseni Karpura</a>
+    </div>
+  </div></section>
+
+  <!-- WHY CHOOSE US -->
+  <section><div class="wrap">
+    <h2 class="sec-title">Why choose us</h2>
+    <p class="sec-sub">Purity you can see, a brand you can reach.</p>
+    <div class="why">
+      <div><h3>Pure ingredients</h3><p>Natural camphor and carefully sourced puja materials.</p></div>
+      <div><h3>Made in India</h3><p>Manufactured, packed and marketed by Sivarpana Private Limited, Pune.</p></div>
+      <div><h3>Fresh packaging</h3><p>Every pack carries its batch number and a 5-year best-before date.</p></div>
+      <div><h3>Customer care</h3><p>Write to us any time for help with your order or a complaint.</p></div>
+    </div>
+  </div></section>
+
+  <!-- REVIEWS -->
+  <section class="alt-bg has-deco">
+    <img class="deco deco-l" src="{{ url_for('static', filename='img/lotus-left.png') }}" alt="">
+    <div class="wrap">
+    <h2 class="sec-title">Customer reviews</h2>
+    <p class="sec-sub">Sample reviews. Real customer reviews will replace these after launch.</p>
+    <div class="reviews">
+      <div class="rev"><div class="stars">★★★★★</div><p>The crystals burn clean and the fragrance fills the whole room.</p><small>Sample review · Pune</small></div>
+      <div class="rev"><div class="stars">★★★★★</div><p>Packaging is neat and everything we needed for Diwali arrived together.</p><small>Sample review · Mumbai</small></div>
+      <div class="rev"><div class="stars">★★★★★</div><p>Lovely gift combo. My parents loved it.</p><small>Sample review · Nashik</small></div>
+    </div>
+  </div></section>
+
+</main>
+{% endblock %}
+
+{% block scripts %}<script src="{{ url_for('static', filename='js/reveal.js') }}"></script>{% endblock %}

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login | Admin | Śivārpaṇa</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Hind:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}"></head>
+<body><main><div class="login"><form class="panel" method="post">
+<input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+<h1>Admin login</h1><p class="sub">Śivārpaṇa Karpura</p>
+<div class="f"><label for="e">Email</label><input id="e" name="email" type="email" required autofocus>
+<label for="p">Password</label><input id="p" name="password" type="password" required></div>
+{% if error %}<div class="err" style="display:block">Wrong email or password.</div>{% endif %}
+<button class="btn" style="width:100%;margin-top:16px">Log in</button>
+<p class="note"><a href="{{ website_url }}" style="color:var(--pink)">← Back to website</a></p>
+</form></div></main></body></html>

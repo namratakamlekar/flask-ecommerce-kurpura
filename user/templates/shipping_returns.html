@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Shipping & returns | Śivārpaṇa Karpura{% endblock %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/shipping-returns.css') }}">{% endblock %}
+{% block content %}
+<div class="page-hero"><h1>Shipping &amp; returns</h1><p>How we deliver and what to do if something is wrong.</p></div>
+
+<div class="prose">
+<p class="updated">Please review and adjust these terms to match your actual policy.</p>
+<h2>Delivery charges</h2><p>Delivery is <b>free on orders of ₹499 and above</b>. For smaller orders a delivery charge of ₹49 applies. The charge is shown at checkout before you place your order.</p>
+<h2>Delivery time</h2><p>Orders are packed in Pune and usually dispatched within 1–2 working days. Delivery time depends on your pincode.</p>
+<h2>Payment</h2><p>We currently accept Cash on Delivery.</p>
+<h2>Damaged or wrong item</h2><p>If your parcel arrives damaged or you receive a wrong item, email us within 48 hours of delivery with your order number and a photo. We will replace the item or refund you.</p>
+<h2>Returns</h2><p>Because puja items such as camphor, dhoop and kumkum are consumable, opened packs cannot be returned. Unopened items can be returned within 7 days of delivery.</p>
+<p>Questions? <a href="{{ url_for('contact') }}">Contact us</a>.</p></div>
+{% endblock %}

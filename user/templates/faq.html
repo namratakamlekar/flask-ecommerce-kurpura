@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}FAQ | Śivārpaṇa Karpura{% endblock %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/faq.css') }}">{% endblock %}
+{% block content %}
+<div class="page-hero"><h1>Frequently asked questions</h1><p>Quick answers to common questions.</p></div>
+
+<div class="faq"><details><summary>What is Bhimseni karpura?</summary><p>Bhimseni karpura is a premium, naturally derived camphor traditionally used in puja and aarti. You will find it in our Karpura category.</p></details><details><summary>How should I store camphor?</summary><p>Keep camphor in a tightly closed jar in a cool, dry place away from direct sunlight so it stays fresh.</p></details><details><summary>Do your products have a best-before date?</summary><p>Yes, the best-before date is printed on every pack.</p></details><details><summary>How long does delivery take?</summary><p>Delivery time depends on your location. Please see our Shipping &amp; returns page for details.</p></details><details><summary>Can I cancel or change an order?</summary><p>Write to us as soon as possible at sivarpanaprivatelimited@gmail.com with your order number and we will do our best to help.</p></details><details><summary>How do I pay?</summary><p>Currently we accept Cash on Delivery. More payment options will be added soon.</p></details><details><summary>Do I need an account to order?</summary><p>Yes, please create a free account or log in so we can save your order and show it under My account.</p></details><p class="center" style="margin-top:24px">Still need help? <a href="{{ url_for('contact') }}" style="color:var(--pink);border-bottom:1px solid var(--gold)">Contact us</a></p></div>
+{% endblock %}

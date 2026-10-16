@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block body %}
+{% for m in messages %}
+<div class="msgc {{ 'read' if m.is_read }}">
+  <div class="row" style="border:0"><b>{{ m.name }} · <a href="mailto:{{ m.email }}" style="color:var(--pink)">{{ m.email }}</a></b><small class="muted">{{ m.date }}</small></div>
+  <p style="margin:6px 0 10px;white-space:pre-wrap">{{ m.text }}</p>
+  <form method="post" action="{{ url_for('message_toggle', id=m.id) }}" style="display:inline"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="btn sm out">{{ 'Mark unread' if m.is_read else 'Mark read' }}</button></form>
+  <form method="post" action="{{ url_for('message_delete', id=m.id) }}" style="display:inline" onsubmit="return confirm('Delete this message?')"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="btn sm danger">Delete</button></form>
+</div>
+{% else %}<div class="box empty">No messages yet.</div>{% endfor %}
+{% endblock %}

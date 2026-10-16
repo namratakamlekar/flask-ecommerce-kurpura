@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block body %}
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+  <p class="muted">Edit price, MRP, badge, photo or hide a product from the shop.</p>
+  <a class="btn" href="{{ url_for('product_form') }}">+ Add product</a>
+</div>
+<div class="box"><table>
+  <tr><th></th><th>Product</th><th>Category</th><th>Size</th><th>Price</th><th>MRP</th><th>Badge</th><th>Shop</th><th></th></tr>
+  {% for p in products %}<tr>
+    <td><img class="th" src="{{ url_for('product_image', name=p.image) }}" alt=""></td>
+    <td><b>{{ p.name }}</b><br><small class="muted">{{ p.name_hi }}</small></td>
+    <td>{{ p.category }}</td><td>{{ p.size }}</td><td>{{ p.price | rupees }}</td><td>{{ p.mrp | rupees }}</td><td>{{ p.tag or '-' }}</td>
+    <td>{{ 'Visible' if p.active else 'Hidden' }}</td>
+    <td><a class="btn sm out" href="{{ url_for('product_form', id=p.id) }}">Edit</a></td>
+  </tr>{% endfor %}
+</table></div>
+{% endblock %}

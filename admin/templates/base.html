@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }} | Admin | Śivārpaṇa</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Hind:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+<div class="layout">
+  <aside class="side">
+    <div class="logo"><img src="{{ url_for('static', filename='img/logo.png') }}" alt=""><span><b>Śivārpaṇa</b><small>ADMIN</small></span></div>
+    <a class="nav {{ 'active' if page == 'dashboard' }}" href="{{ url_for('dashboard') }}">Dashboard</a>
+    <a class="nav {{ 'active' if page == 'orders' }}" href="{{ url_for('orders') }}">Orders{% if placed_count %}<span class="badge">{{ placed_count }}</span>{% endif %}</a>
+    <a class="nav {{ 'active' if page == 'products' }}" href="{{ url_for('products') }}">Products</a>
+    <a class="nav {{ 'active' if page == 'customers' }}" href="{{ url_for('customers') }}">Customers</a>
+    <a class="nav {{ 'active' if page == 'messages' }}" href="{{ url_for('messages') }}">Messages{% if unread_count %}<span class="badge">{{ unread_count }}</span>{% endif %}</a>
+    <div class="sep"></div>
+    <a class="nav" href="{{ website_url }}" target="_blank">View website ↗</a>
+    <form method="post" action="{{ url_for('logout') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <button class="nav" style="all:unset;display:block;width:100%;box-sizing:border-box;padding:10px 12px;cursor:pointer;opacity:.85;color:#fff" type="submit">Log out</button></form>
+  </aside>
+  <div>
+    <div class="top"><h1>{{ title }}</h1><span class="who">{{ admin_email }}</span></div>
+    <main class="content" id="main">{% block body %}{% endblock %}</main>
+  </div>
+</div>
+{% with msgs = get_flashed_messages() %}{% if msgs %}<div class="toast show" id="toast">{{ msgs[0] }}</div>
+<script>setTimeout(() => document.getElementById("toast").classList.remove("show"), 2500)</script>{% endif %}{% endwith %}
+</body></html>

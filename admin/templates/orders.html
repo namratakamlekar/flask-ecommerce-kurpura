@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block body %}
+<form class="bar" method="get">
+  <input name="q" value="{{ q }}" type="search" placeholder="Search order no, name, email...">
+  <select name="status" onchange="this.form.submit()"><option value="">All statuses</option>
+    {% for s in statuses %}<option {{ 'selected' if s == st }}>{{ s }}</option>{% endfor %}</select>
+  <button class="btn out">Search</button>
+</form>
+<div class="box">
+{% if orders %}<table><tr><th>Order</th><th>Customer</th><th>Date</th><th>Items</th><th>Total</th><th>Status</th><th></th></tr>
+{% for o in orders %}<tr>
+  <td><b>#{{ o.number }}</b></td>
+  <td>{{ o.ship_name }}<br><small class="muted">{{ o.email }}</small></td>
+  <td>{{ o.date }}</td><td>{{ o.item_count }}</td><td>{{ o.total | rupees }}</td>
+  <td><form method="post" action="{{ url_for('order_status', id=o.id) }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <select name="status" onchange="this.form.submit()">{% for s in statuses %}<option {{ 'selected' if s == o.status }}>{{ s }}</option>{% endfor %}</select></form></td>
+  <td><a class="btn sm out" href="{{ url_for('order_detail', id=o.id) }}">View</a></td>
+</tr>{% endfor %}</table>
+{% else %}<div class="empty">No orders found.</div>{% endif %}
+</div>
+{% endblock %}

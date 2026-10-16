@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Cart | Śivārpaṇa Karpura{% endblock %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">{% endblock %}
+
+{% block content %}
+<div class="page-hero"><h1>Your cart</h1><p>Review your items before checkout.</p></div>
+
+<main class="wrap cartwrap" id="cart">
+{% if not lines %}
+  <div class="emptycart"><h2>Your cart is empty</h2><p>Add karpura, diyas or a festival kit to begin.</p><a class="btn btn-primary" href="{{ url_for('shop') }}">Browse products</a></div>
+{% else %}
+  <div>
+    {% for l in lines %}{% set p = l.product %}
+    <div class="item">
+      <div class="thumb cat-{{ p.css_index }}"><img class="thumb-img" src="{{ url_for('static', filename='img/products/' ~ p.image) }}" alt="{{ p.name }}"></div>
+      <div><h3><a href="{{ url_for('product', id=p.id) }}">{{ p.name }}</a></h3><small>{{ p.size }} · {{ p.price | rupees }} each</small>
+        <form class="qty" method="post" action="{{ url_for('cart_update', id=p.id) }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <button name="op" value="dec" aria-label="Decrease">−</button><span>{{ l.qty }}</span><button name="op" value="inc" aria-label="Increase">+</button>
+        </form></div>
+      <div class="line"><b>{{ l.total | rupees }}</b>
+        <form method="post" action="{{ url_for('cart_update', id=p.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="rm" name="op" value="remove">Remove</button></form></div>
+    </div>
+    {% endfor %}
+  </div>
+  <aside class="summary"><h2>Order summary</h2>
+    <div class="srow"><span>Subtotal</span><span>{{ subtotal | rupees }}</span></div>
+    <div class="srow"><span>Delivery</span><span>Added at checkout</span></div>
+    <div class="srow total"><span>Total</span><span>{{ subtotal | rupees }}</span></div>
+    <p class="note">Prices include all taxes.</p>
+    <a class="btn btn-primary btn-block" href="{{ url_for('checkout') }}">Proceed to checkout</a>
+  </aside>
+{% endif %}
+</main>
+{% endblock %}

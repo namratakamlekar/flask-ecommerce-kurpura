@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Register | Śivārpaṇa Karpura{% endblock %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">{% endblock %}
+
+{% block content %}
+<main class="auth"><div class="panel">
+  <h1>Create your account</h1>
+  <p class="sub">Save your details and track every order.</p>
+  {% if error %}<div class="msg err">{{ error }}</div>{% endif %}
+  <form method="post" novalidate>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" value="{{ form.name }}" autocomplete="name"></div>
+    <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" value="{{ form.email }}" autocomplete="email"></div>
+    <div class="field"><label for="phone">Mobile number</label><input id="phone" name="phone" type="tel" inputmode="numeric" maxlength="10" value="{{ form.phone }}" autocomplete="tel" placeholder="10-digit number"></div>
+    <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="new-password" placeholder="At least 6 characters"></div>
+    <div class="field"><label for="confirm">Confirm password</label><input id="confirm" name="confirm" type="password" autocomplete="new-password"></div>
+    <button class="btn btn-primary btn-block" type="submit">Create account</button>
+  </form>
+  <p class="alt">Already registered? <a href="{{ url_for('login') }}">Log in</a></p>
+</div></main>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="cards">
+  <div class="stat"><small>Total orders</small><b>{{ stats.orders }}</b></div>
+  <div class="stat"><small>Revenue</small><b>{{ stats.revenue | rupees }}</b></div>
+  <div class="stat"><small>Customers</small><b>{{ stats.customers }}</b></div>
+  <div class="stat"><small>Products</small><b>{{ stats.products }}</b></div>
+  <div class="stat"><small>Unread messages</small><b>{{ stats.unread }}</b></div>
+</div>
+<div class="two">
+  <div class="box"><h2>Recent orders</h2>
+    {% if recent %}<table><tr><th>Order</th><th>Customer</th><th>Date</th><th>Total</th><th>Status</th></tr>
+    {% for o in recent %}<tr><td><a href="{{ url_for('order_detail', id=o.id) }}"><b>#{{ o.number }}</b></a></td><td>{{ o.ship_name }}</td><td>{{ o.date }}</td><td>{{ o.total | rupees }}</td><td><span class="status {{ o.status | lower }}">{{ o.status }}</span></td></tr>{% endfor %}
+    </table>{% else %}<div class="empty">No orders yet.</div>{% endif %}
+  </div>
+  <div>
+    <div class="box"><h2>Orders by status</h2><div class="bars">
+      {% for s, n in by_status %}<div><span class="n">{{ s }}</span><i style="width:{{ n / max_n * 100 }}%"></i><b>{{ n }}</b></div>{% endfor %}
+    </div></div>
+    <div class="box"><h2>Top products</h2>
+      {% for t in top %}<div class="row"><span>{{ t.name }}</span><b>{{ t.sold }} sold</b></div>
+      {% else %}<div class="empty">Nothing sold yet.</div>{% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

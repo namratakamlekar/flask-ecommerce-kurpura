@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Terms & conditions | Śivārpaṇa Karpura{% endblock %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/terms.css') }}">{% endblock %}
+{% block content %}
+<div class="page-hero"><h1>Terms &amp; conditions</h1><p>Please read before you order.</p></div>
+
+<div class="prose"><p class="updated">Last updated: October 2026. Please have this reviewed before launch.</p>
+<h2>Using this website</h2><p>By using this website and placing an order you agree to these terms.</p>
+<h2>Products and prices</h2><p>Prices are in Indian rupees and include all taxes. We try to keep descriptions and photos accurate, but colours and packaging may vary slightly.</p>
+<h2>Orders</h2><p>An order is confirmed once it is placed successfully on our website. We may cancel an order if an item is out of stock or an address cannot be served, and we will let you know.</p>
+<h2>Shipping and returns</h2><p>See our <a href="{{ url_for('shipping_returns') }}">Shipping &amp; returns</a> page.</p>
+<h2>Contact</h2><p>Sivarpana Private Limited, Pune. Email <a href="mailto:sivarpanaprivatelimited@gmail.com">sivarpanaprivatelimited@gmail.com</a>.</p></div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% from "_macros.html" import product_card %}
+{% block title %}Shop | Śivārpaṇa Karpura{% endblock %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/shop.css') }}">{% endblock %}
+
+{% block content %}
+<div class="page-hero"><h1>Shop puja essentials</h1><p>Karpura, dhoop, diyas and festival kits for your daily puja.</p></div>
+
+<main class="wrap shop">
+  <!-- Search + sort: a normal GET form, so the URL becomes /shop?q=diya&sort=low -->
+  <form class="toolbar" method="get" action="{{ url_for('shop') }}">
+    {% if cat %}<input type="hidden" name="cat" value="{{ cat }}">{% endif %}
+    <input type="search" name="q" value="{{ q }}" class="search" placeholder="Search karpura, diya, kumkum..." aria-label="Search products">
+    <select name="sort" class="sort" aria-label="Sort products" onchange="this.form.submit()">
+      <option value="default" {{ 'selected' if sort == 'default' }}>Sort: Featured</option>
+      <option value="low"  {{ 'selected' if sort == 'low' }}>Price: Low to High</option>
+      <option value="high" {{ 'selected' if sort == 'high' }}>Price: High to Low</option>
+      <option value="name" {{ 'selected' if sort == 'name' }}>Name: A to Z</option>
+    </select>
+  </form>
+
+  <!-- Category chips are links that keep the search + sort -->
+  <div class="chips">
+    <a class="chip {{ 'active' if not cat }}" href="{{ url_for('shop', q=q or None, sort=sort if sort != 'default' else None) }}">All</a>
+    {% for c in categories %}
+    <a class="chip {{ 'active' if c.name == cat }}" href="{{ url_for('shop', cat=c.name, q=q or None, sort=sort if sort != 'default' else None) }}">{{ c.name }}</a>
+    {% endfor %}
+  </div>
+  <p class="result-count" aria-live="polite">{{ products|length }} product{{ '' if products|length == 1 else 's' }}</p>
+
+  {% if products %}
+  <div class="grid">{% for p in products %}{{ product_card(p) }}{% endfor %}</div>
+  {% else %}
+  <div class="empty">
+    <h2>No products found</h2>
+    <p>Try a different word, or clear the search and pick another category.</p>
+    <a class="btn btn-outline" href="{{ url_for('shop') }}">Clear search</a>
+  </div>
+  {% endif %}
+</main>
+{% endblock %}

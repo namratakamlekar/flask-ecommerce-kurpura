@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="box" style="max-width:640px">
+  <p class="muted">{{ order.date }} · <span class="status {{ order.status | lower }}">{{ order.status }}</span></p>
+  {% for i in order.order_items %}<div class="row"><span>{{ i.name }} × {{ i.qty }}</span><span>{{ (i.price * i.qty) | rupees }}</span></div>{% endfor %}
+  <div class="row"><span>Delivery</span><span>{{ (order.delivery | rupees) if order.delivery else 'FREE' }}</span></div>
+  <div class="row"><b>Total</b><b>{{ order.total | rupees }}</b></div>
+  <h3 style="margin-top:14px">Deliver to</h3>
+  <p>{{ order.ship_name }}<br>{{ order.ship_address }}, {{ order.ship_city }} – {{ order.ship_pin }}<br>Phone: {{ order.ship_phone }}<br>{{ order.email }}</p>
+  <p class="muted">Payment: {{ order.payment }}</p>
+  <form method="post" action="{{ url_for('order_status', id=order.id) }}" style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <input type="hidden" name="back" value="{{ url_for('order_detail', id=order.id) }}">
+    <select name="status">{% for s in statuses %}<option {{ 'selected' if s == order.status }}>{{ s }}</option>{% endfor %}</select>
+    <button class="btn">Update status</button>
+    <button type="button" class="btn out" onclick="window.print()">Print</button>
+    <a class="btn out" href="{{ url_for('orders') }}">Back</a>
+  </form>
+</div>
+{% endblock %}

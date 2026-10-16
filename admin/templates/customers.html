@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block body %}
+<form class="bar" method="get"><input name="q" value="{{ q }}" type="search" placeholder="Search name, email or phone..."><button class="btn out">Search</button></form>
+<div class="box">
+{% if rows %}<table><tr><th>Name</th><th>Email</th><th>Phone</th><th>Orders</th><th>Total spent</th></tr>
+{% for u in rows %}<tr><td><b>{{ u.name }}</b></td><td>{{ u.email }}</td><td>{{ u.phone or '-' }}</td><td>{{ u.order_count }}</td><td>{{ u.spent | rupees }}</td></tr>{% endfor %}</table>
+{% else %}<div class="empty">No customers found.</div>{% endif %}
+</div>
+{% endblock %}

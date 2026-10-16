@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}My account | Śivārpaṇa Karpura{% endblock %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/account.css') }}">{% endblock %}
+
+{% block content %}
+<div class="page-hero"><h1>My account</h1><p>Your profile and orders.</p></div>
+
+<main class="wrap acct">
+  <aside class="box">
+    <div class="avatar">{{ user.name[0] | upper }}</div>
+    <h2>{{ user.name }}</h2>
+    <div class="row"><span>Email</span><span>{{ user.email }}</span></div>
+    <div class="row"><span>Mobile</span><span>{{ user.phone or '-' }}</span></div>
+    <form class="logout-form" method="post" action="{{ url_for('logout') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <button class="btn btn-outline btn-block logout" type="submit">Log out</button>
+    </form>
+  </aside>
+
+  <section class="box">
+    <h2>Order history</h2>
+    {% for o in orders %}
+    <div class="order">
+      <div class="order-top"><b>Order #{{ o.number }}</b><span class="status {{ o.status | lower }}">{{ o.status }}</span></div>
+      <small>{{ o.date }}</small>
+      <ul>{% for i in o.order_items %}<li>{{ i.name }} × {{ i.qty }}</li>{% endfor %}</ul>
+      <b>Total {{ o.total | rupees }}</b>
+      {% if o.status == 'Placed' %}
+      <form class="cancel-form" method="post" action="{{ url_for('cancel_order', id=o.id) }}" onsubmit="return confirm('Cancel this order?')">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="btn-link" type="submit">Cancel order</button>
+      </form>
+      {% endif %}
+    </div>
+    {% else %}
+    <div class="empty-orders"><p>You have not placed any orders yet.</p><a class="btn btn-primary" href="{{ url_for('shop') }}">Start shopping</a></div>
+    {% endfor %}
+  </section>
+</main>
+{% endblock %}

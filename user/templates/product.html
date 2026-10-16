@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% from "_macros.html" import product_card %}
+{% block title %}{{ p.name }} | Śivārpaṇa Karpura{% endblock %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/product.css') }}">{% endblock %}
+
+{% block content %}
+<main class="wrap">
+  <p class="crumbs"><a href="{{ url_for('index') }}">Home</a> / <a href="{{ url_for('shop') }}">Shop</a> / <a href="{{ url_for('shop', cat=p.category) }}">{{ p.category }}</a> / {{ p.name }}</p>
+  <div class="pd">
+    <div class="pd-media cat-{{ p.css_index }}">
+      <img class="pd-img" src="{{ url_for('static', filename='img/products/' ~ p.image) }}" alt="{{ p.name }}">
+      {% if p.tag %}<span class="badge">{{ p.tag }}</span>{% endif %}
+    </div>
+    <div class="pd-info">
+      <p class="card-cat">{{ p.category }}</p>
+      <h1>{{ p.name }}</h1><p class="pd-hi">{{ p.name_hi }}</p>
+      <div class="price-row"><span class="price">{{ p.price | rupees }}</span><span class="mrp">{{ p.mrp | rupees }}</span><span class="off">{{ p.discount }}% off</span></div>
+      <p class="desc">{{ p.description }}</p>
+      <ul class="pd-meta"><li><b>Pack size:</b> {{ p.size }}</li><li><b>Category:</b> {{ p.category }}</li><li><b>Made in:</b> India</li><li><b>Prices:</b> include all taxes</li></ul>
+      <div class="pd-buy">
+        <div class="qty-pick"><button type="button" id="minus" aria-label="Decrease">−</button><span id="q">1</span><button type="button" id="plus" aria-label="Increase">+</button></div>
+        <button class="btn btn-primary" data-add="{{ p.id }}" data-qty-from="#q">Add to cart</button>
+        <button class="btn btn-outline" data-add="{{ p.id }}" data-qty-from="#q" data-go="{{ url_for('cart') }}">Buy now</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% if related %}
+<section class="related"><div class="wrap">
+  <h2 class="sec-title">You may also like</h2><p class="sec-sub">More from our shop.</p>
+  <div class="grid">{% for r in related %}{{ product_card(r) }}{% endfor %}</div>
+</div></section>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const q = document.getElementById("q");
+  document.getElementById("minus").onclick = () => q.textContent = Math.max(1, Number(q.textContent) - 1);
+  document.getElementById("plus").onclick  = () => q.textContent = Math.min(20, Number(q.textContent) + 1);
+</script>
+{% endblock %}

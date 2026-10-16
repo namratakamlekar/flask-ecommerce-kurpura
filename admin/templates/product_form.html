@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="box" style="max-width:640px">
+  {% if error %}<div class="err" style="display:block;margin-bottom:10px">{{ error }}</div>{% endif %}
+  <form class="f" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <label>Name</label><input name="name" value="{{ p.name or '' }}" required>
+    <label>Hindi name</label><input name="name_hi" value="{{ p.name_hi or '' }}">
+    <label>Category</label>
+    <select name="category_id">{% for c in categories %}<option value="{{ c.id }}" {{ 'selected' if c.id == p.category_id }}>{{ c.name }}</option>{% endfor %}</select>
+    <label>Selling price (₹)</label><input name="price" type="number" min="1" value="{{ p.price or '' }}" required>
+    <label>MRP (₹)</label><input name="mrp" type="number" min="1" value="{{ p.mrp or '' }}" required>
+    <label>Pack size</label><input name="size" value="{{ p.size or '' }}">
+    <label>Badge (leave empty for none)</label><input name="tag" value="{{ p.tag or '' }}">
+    <label>Description</label><textarea name="description" rows="3">{{ p.description or '' }}</textarea>
+    <label>Photo (JPG / PNG / WEBP{{ ', leave empty to keep current' if p.id }})</label><input name="image" type="file" accept="image/*">
+    <label style="display:flex;gap:8px;align-items:center"><input style="width:auto" type="checkbox" name="active" {{ 'checked' if p.active }}> Show in shop</label>
+    <div style="margin-top:16px;display:flex;gap:8px;justify-content:flex-end">
+      <a class="btn out" href="{{ url_for('products') }}">Cancel</a><button class="btn">Save</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

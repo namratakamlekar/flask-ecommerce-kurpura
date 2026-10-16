@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="{{ csrf_token }}">
+<title>{% block title %}Śivārpaṇa Karpura{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Hind:wght@400;500;600&display=swap" rel="stylesheet">
+{% block css %}{% endblock %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/extra.css') }}">
+</head>
+<body>
+
+{% set ep = request.endpoint or '' %}
+<header class="site-header">
+  <a href="{{ url_for('index') }}" class="brand"><img src="{{ url_for('static', filename='img/logo.png') }}" alt=""><span><b>Śivārpaṇa</b><small>KARPURA</small></span></a>
+  <nav class="nav">
+    <a href="{{ url_for('index') }}"   class="{{ 'active' if ep == 'index' }}">Home</a>
+    <a href="{{ url_for('shop') }}"    class="{{ 'active' if ep == 'shop' }}">Shop</a>
+    <a href="{{ url_for('about') }}"   class="{{ 'active' if ep == 'about' }}">About</a>
+    <a href="{{ url_for('contact') }}" class="{{ 'active' if ep == 'contact' }}">Contact</a>
+    <a href="{{ url_for('account') }}" class="{{ 'active' if ep in ('account', 'login', 'register') }}">{% if current_user %}Hi, {{ current_user.name.split()[0] }}{% else %}Login{% endif %}</a>
+    <a href="{{ url_for('cart') }}"    class="{{ 'active' if ep == 'cart' }}">Cart<span class="cart-count" id="cartCount">{{ cart_count }}</span></a>
+  </nav>
+</header>
+
+{% block content %}{% endblock %}
+
+<footer class="site-footer"><div class="wrap">
+  <div class="foot">
+    <div><h3>Śivārpaṇa Karpura</h3><p>Pure. Sacred. Divine.<br>Natural camphor and puja essentials for your daily aarti and special pujas.</p></div>
+    <div><h3>Explore</h3>
+      <a href="{{ url_for('shop') }}">Shop all products</a>
+      <a href="{{ url_for('cart') }}">Your cart</a>
+      <a href="{{ url_for('account') }}">My account</a>
+      <a href="{{ url_for('about') }}">About us</a></div>
+    <div><h3>Help</h3>
+      <a href="{{ url_for('contact') }}">Contact us</a>
+      <a href="{{ url_for('faq') }}">FAQ</a>
+      <a href="{{ url_for('shipping_returns') }}">Shipping &amp; returns</a>
+      <a href="{{ url_for('privacy_policy') }}">Privacy policy</a>
+      <a href="{{ url_for('terms') }}">Terms &amp; conditions</a></div>
+    <div><h3>Contact</h3><p>Sivarpana Private Limited<br>15/A, Avishkar Gargen, Sahakar Nagar, Pune – 411009<br>sivarpanaprivatelimited@gmail.com</p></div>
+  </div>
+  <p class="copy">© Sivarpana Private Limited. Made in India.</p>
+</div></footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>
